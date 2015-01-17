@@ -1,13 +1,12 @@
+//Astar
+//author: Ryan Skeele
+
 #include <iostream>
+//#include <queue>
+//#include <math.h>
 
+using namespace std;
 
-
-
-int main{
-
-
-
-
-return 0
+class astar(IDomain*<Node>){
+	
 }
-
