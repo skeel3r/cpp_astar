@@ -8,5 +8,8 @@
 using namespace std;
 
 class astar(IDomain*<Node>){
-	
+	d = IDomain*;
+	start = d.get_start();
+	goal = d.get_goal();
+
 }
