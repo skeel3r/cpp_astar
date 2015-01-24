@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
-#include "Domain2d.cpp"
+#include "Domain2d.hpp"
 
 using namespace std;
 
-int main(){
+int main(int argc, char **argv){
 //	need to import map
 	Domain2d Dom1;
 //	make_nodes();
