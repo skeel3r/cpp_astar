@@ -9,8 +9,7 @@
 using namespace std;
 
 void PGM_parser(string filename, My_map * map2d){
-	bool debug = false;
-
+	bool debug = true;
 	ifstream file;
 	file.open(filename);
 	string line;
