@@ -2,7 +2,9 @@
 #define NODE_2D_HPP
 class Node2d{
 	public: 
-		double x, y, g_score, f_score;
+		int x, y;
+		double g_score, f_score;
+		const bool operator<(const Node2d& other) const;
 };
 
 #endif

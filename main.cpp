@@ -2,18 +2,15 @@
 #include <vector>
 #include "Domain2d.hpp"
 #include "Node2d.hpp"
+#include "astar.hpp"
 
 using namespace std;
 
+//Domain imports the map and defines functions such as the heuristic, cost between nodes, and neighbors. The node class is the definition of the different types of nodes, the nodes include their location and their g_score, and parent Node.
 int main(int argc, char **argv){
-//	need to import map
 	Domain2d Dom1;
 	Dom1.get_map();
-	Node2d start;
-	Dom1.get_neighbors(start);
-//	make_nodes();
-//	vector<int> path;
-//	path = astar(Dom1<Node1>, *Node1);
-//	cout << path;
+	astar astar1;
+	astar1.get_path(Dom1);
 	return 0;
 }

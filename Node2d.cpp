@@ -1,8 +1,4 @@
-class Node2d{
-	public:
-		int x, y;
-};
-
-vector< vector< Node2d > > nodes;
-
-
+#include "Node2d.hpp"
+const bool Node2d::operator<(const Node2d& other) const {
+	return f_score > other.f_score;
+}
