@@ -5,6 +5,7 @@ class Node2d{
 		int x, y;
 		double g_score, f_score;
 		const bool operator<(const Node2d& other) const;
+		Node2d* parent;
 };
 
 #endif

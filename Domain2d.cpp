@@ -5,46 +5,72 @@
 using namespace std;
 
 void Domain2d::get_map(){
-	map.start = make_pair(1,1);
-	map.goal = make_pair(24,24);
-	PGM_parser("maze1.pgm", &map);
-};
+	cout << "PGM Start";
+	PGM_parser("maze2.pgm", &map);
+	cout << "PGM FINISH";
+}
 
-Node2d Domain2d::get_start(){
-	Node2d start;
-	start.x = map.start.first;
-	start.y = map.start.second;
-	return start;
-};
+void Domain2d::get_nodes(){
+	for(int i = 0; i< map.width; i++){
+		vector<Node2d> row;
+		for(int j = 0; j< map.height; j++){
+			Node2d node;
+			node.x = i;
+			node.y = j;
+			row.push_back(node);
+		}
+		nodes.push_back(row);
+	}
+}
 
-Node2d Domain2d::get_goal(){
-	Node2d goal;
-	goal.x = map.goal.first;
-	goal.y = map.goal.second;
-	return goal;
-};
+Node2d* Domain2d::get_start(){
+	return &nodes[0][0];
+}
+
+Node2d* Domain2d::get_goal(){
+	return &nodes[map.height-1][map.width-1];
+}
 
 
-vector<Node2d> Domain2d::get_neighbors(Node2d current){
-	vector<Node2d> neighbors;
-	for(int i = -1; i <=1; i++){
-		for(int j = -1; j <= 1; j++){
-			if(map.map[current.y + i][current.x + j] == 1&& j<map.width && i<map.height){
-				Node2d node;
-				node.x = current.x + j;
-				node.y = current.y + i;
-				neighbors.push_back(node);
-			};
-		};
-	};
+vector<Node2d*> Domain2d::get_neighbors(Node2d* current){
+	
+	vector<Node2d*> neighbors;
+	map.map[current->y+1][current->x+1];
+
+	// need to change later so that it is only 4 connected
+	int tmp_x;
+	int tmp_y;
+	for(int i = -1; i < 2; i++){
+		for(int j = -1; j < 2; j++){
+			tmp_x = current->x+i;
+			tmp_y = current->y+j;
+			if(tmp_x >= 0 && tmp_y >= 0){
+				if(current->x != tmp_x || current->y != tmp_y){
+					if (tmp_x < map.width && tmp_y < map.height){
+						if(map.map[tmp_x][tmp_y] == 1){
+							Node2d* neighbor;
+							neighbor = &nodes[tmp_x][tmp_y];
+							neighbors.push_back(neighbor);
+						}
+					}
+				}
+			}
+			
+		}
+	}
+	/*for(int k =0; k < neighbors.size(); k++){
+		cout << "NEIGHBORS" << k<< endl;
+		cout << endl << neighbors[k] << endl;
+	}*/
 	return neighbors;
-};
+}
 
-double Domain2d::get_heuristic(Node2d current){
+double Domain2d::get_heuristic(Node2d* current){
 	double heuristic;
-	heuristic = sqrt(pow((current.x - map.goal.first),2) + pow((current.y - map.goal.second), 2));
-	cout << heuristic << endl;
+	Node2d* goal;
+	goal = get_goal();
+	heuristic = sqrt(pow((current->x - goal->x),2) + pow((current->y - goal->y), 2));
 	return heuristic;
-};
+}
 
 
