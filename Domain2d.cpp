@@ -66,11 +66,29 @@ vector<Node2d*> Domain2d::get_neighbors(Node2d* current){
 }
 
 double Domain2d::get_heuristic(Node2d* current){
+	//euclidean heuristic
+	
 	double heuristic;
+	double epsilon = 1;
+	/*	
 	Node2d* goal;
 	goal = get_goal();
-	heuristic = sqrt(pow((current->x - goal->x),2) + pow((current->y - goal->y), 2));
+	heuristic = epsilon*sqrt(pow((current->x - goal->x),2) + pow((current->y - goal->y), 2));
+	*/
+		
+	Node2d* goal;
+	goal = get_goal();
+	heuristic = epsilon *(abs(current->x - goal->x)+ abs(current->y - goal->y));
+	
 	return heuristic;
 }
 
+double Domain2d::get_cost(Node2d* curr, Node2d* neigh){
+	double cost;
+	if(abs(curr->x - neigh->x) == 1 && abs(curr->y - neigh->y) == 1){
+		cout << endl << "UPDATED COST" << endl;
+		return cost = sqrt(2);
+	}
+	return 1;
+}
 

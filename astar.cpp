@@ -21,7 +21,7 @@ astar::~astar(){
 }
 */
 
-void astar::get_path(Domain2d d){
+vector<Node2d*> astar::get_path(Domain2d d){
 	cout << "help" << endl;
 	
 	Node2d* start;
@@ -38,6 +38,7 @@ void astar::get_path(Domain2d d){
 	Node2d* current;
 	cout << "BEFORE ASTAR" << endl;
 	int timeout = 0;
+	int iter = 0;
 	while(open_set.size()!=0 && timeout < 1000){
 		comp_func c;
 		sort(open_set.begin(), open_set.end(), c);	
@@ -45,13 +46,20 @@ void astar::get_path(Domain2d d){
 		//cout << endl << current->x << "    " << current->y<< endl ;
 		if(current->x == goal->x && current->y == goal->y){
 			cout << endl << "GOALLL"<< endl;
+			cout << endl << "Loop Count :" << timeout << endl;
+			vector< Node2d*> path;
 			while(current != d.get_start()){
 				//cout << "PATH" << current << endl;
 				//cout << endl << current->x << "    " << current->y<< endl ;
 				path.push_back(current);
 				current = current->parent;
 			}
-			break;
+			for(int i = 0; i < path.size(); i++){
+				cout << endl << path[i]->x << "  " << path[i]->y<< endl;
+			}
+			cout << endl << "PATH LENGTH :" << path.size() << endl;
+			return path;
+			//break;
 		}
 
 		open_set.erase(open_set.begin());
@@ -63,7 +71,7 @@ void astar::get_path(Domain2d d){
 			if(find(closed_set.begin(), closed_set.end(), *i)!= closed_set.end()){
 				continue;
 			}
-			double tentative_g_score = current->g_score + 1;
+			double tentative_g_score = current->g_score + d.get_cost(current, *i);
 			bool in_open_set(find(open_set.begin(), open_set.end(), *i)!= open_set.end());
 			if(!in_open_set || tentative_g_score < (*i)->g_score){
 				(*i)->parent = current;
@@ -71,6 +79,8 @@ void astar::get_path(Domain2d d){
 				(*i)->f_score = (*i)->g_score + d.get_heuristic(*i);
 				if(!in_open_set){
 					open_set.push_back(*i);
+					iter ++;
+					cout << endl << "NODES EXPANDED" << iter << endl;
 				}
 			}
 		}

@@ -11,8 +11,9 @@ struct comp_func{
 
 class astar{
 	public:
-		void get_path(Domain2d);
-		vector< Node2d* > path;
+		//vector< Node2d* > path;
+		vector< Node2d*>  get_path(Domain2d);
+		
 
 		//astar(void);
 		//~astar(void);

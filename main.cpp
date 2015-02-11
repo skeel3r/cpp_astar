@@ -13,15 +13,17 @@ int main(int argc, char **argv){
 	Dom1.get_nodes();
 	astar astar1;
 	cout << endl << "BEFORE GET PATH" << endl;
-	astar1.get_path(Dom1);
-	for(int i = 0; i < astar1.path.size(); i++){
+	vector< Node2d*> path;
+	path = astar1.get_path(Dom1);
+
+	for(int i = 0; i < path.size(); i++){
 		//cout << astar1.path[i] << endl;
-		cout << astar1.path[i]->x << "    " << astar1.path[i]->y << endl;
-		Dom1.map.map[astar1.path[i]->x][astar1.path[i]->y]= 8;
+		cout << path[i]->x << "    " << path[i]->y << endl;
+		Dom1.map.map[path[i]->x][path[i]->y]= 8;
 	}
 	for(int j = 0; j < Dom1.map.height; j++){
 		for(int i = 0; i < Dom1.map.width; i ++){
-			cout << Dom1.map.map[j][i];
+			cout << Dom1.map.map[j][i]<< ",";
 		}
 		cout << endl;
 	}
